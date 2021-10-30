@@ -44,11 +44,9 @@ const Bio = () => {
       />
       {author?.name && (
         <p>
-          Written by <strong>{author.name}</strong> {author?.summary || null}
-          {` `}
-          <a href={`https://twitter.com/${social?.twitter || ``}`}>
-            You should follow them on Twitter
-          </a>
+          Được viết bởi <a href={`https://twitter.com/${social?.facebook || ``}`}>
+            <strong>{author.name}</strong></a> <br />{author?.summary || null}
+
         </p>
       )}
     </div>

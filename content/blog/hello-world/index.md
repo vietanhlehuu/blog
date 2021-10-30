@@ -25,6 +25,7 @@ You can also write code blocks here!
 
 ```js
 const saltyDuckEgg = "chinese preserved food product"
+console.log("Hello world again everyone")
 ```
 
 | Number | Title                                    | Year |

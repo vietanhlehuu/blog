@@ -1,5 +1,8 @@
 /* CSS Custom Properties Definitions */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --maxWidth-none: "none";
@@ -321,6 +324,9 @@ a:focus {
   margin-bottom: var(--spacing-8);
 }
 
+:not(pre) > code[class*="language-"] {
+  background-color: var(--color-primary) !important;
+}
 /* Media queries */
 
 @media (max-width: 42rem) {

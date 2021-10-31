@@ -25,7 +25,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title="All posts" />
+      <Seo title="Tất cả bài viết" />
       <Bio />
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
@@ -79,7 +79,7 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString:  "DD/MM/YYYY")
           title
           description
         }

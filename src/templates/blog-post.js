@@ -29,7 +29,7 @@ const BlogPostTemplate = ({ data, location }) => {
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
-        <hr />
+        <hr style={{ marginTop: 20 }} />
         <footer>
           <Bio />
         </footer>
@@ -83,7 +83,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "DD/MM/YYYY")
         description
       }
     }

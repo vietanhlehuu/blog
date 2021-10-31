@@ -55,6 +55,20 @@ function debounce(func, debounceTime) {
 }
 ```
 
+Nhưng nếu để ý, thì thực ra nếu vượt qua thời gian timeout rồi thì clear vẫn không sao, nên chúng ta có thể lược bớt biến lastCallTime.
+
+```js
+function debounce(func, debounceTime) {
+  let timeout
+
+  return function (...arg) {
+    timeout = setTimeout(() => {
+      func(...arg)
+    }, debounceTime)
+  }
+}
+```
+
 ## Kết luận
 
 Để hiện thực hàm này, chúng ta đã tận dụng `closure` để lưu lại 2 biến `lastCallTime` và `timeout`.
@@ -65,14 +79,9 @@ function debounce(func, debounceTime) {
 
 ```js
 function debounce(func, debounceTime) {
-  let lastCallTime
   let timeout
 
   return function (...arg) {
-    if (timeout && Date.now() - lastCallTime < debounceTime) {
-      clearTimeout(timeout)
-    }
-    lastCallTime = Date.now()
     timeout = setTimeout(() => {
       //=== UPDATED HERE===
       func.apply(this, arg)

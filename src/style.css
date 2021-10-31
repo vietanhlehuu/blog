@@ -331,6 +331,10 @@ a:focus {
   background-color: var(--color-primary) !important;
   padding: 0 2px !important;
 }
+
+.token.comment {
+  color: rgb(15, 241, 15) !important;
+}
 /* Media queries */
 
 @media (max-width: 42rem) {

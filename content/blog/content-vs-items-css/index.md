@@ -12,32 +12,7 @@ Trong bài viết này, chúng ta sẽ cùng nhau phân biệt giữa `justify-c
 
 Đầu tiên, chúng ta sẽ phân biệt `align-items` và `align-content` trong flex (grid tương tự).
 
-<!-- Tóm tắt là như thế này: Giả sử chúng ta có rất nhiều item nằm trên cùng 1 hàng với các chiều cao khác nhau. `align-items` sẽ có nhiệm vụ chỉnh các item đó chạy trên trục dọc của từng item. `align-content` sẽ có nhiệm vụ chỉnh nguyên khu vực bọc của các item đó. -->
-
 Cho ví dụ minh họa sau:
-
-<!-- ```css
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  height: 300px;
-  padding: 10px;
-}
-
-.container .item {
-  width: calc(100% / 3);
-  height: 64px;
-  margin: 10px;
-}
-
-.container .item:nth-child(2) {
-  height: 96px;
-}
-
-.container .item:nth-child(4) {
-  height: 128px;
-}
-``` -->
 
 <div class="rounded-lg overflow-hidden bg-gradient-to-r from-blue-50 to-blue-100 p-6 mb-10">
   <div class="flex justify-start flex-wrap h-[300px] border-blue-500 border-2 border-solid ">
@@ -119,6 +94,6 @@ Chúng ta có thể nhận thấy:
 
 ![Grid 3](./grid-3.png)
 
-## Tóm lại
+## Kết luận
 
 Để phân biệt và hiểu dễ dàng các thuộc tính item/content, chúng ta nên làm mẫu với các item có chiều rộng, chiều cao khác nhau và đặc biệt là chưa chiếm hết diện tích của container.

@@ -89,7 +89,7 @@ Và giờ chúng ta sẽ thấy rõ sự khác nhau giữa `align-items` và `al
 
 ## justify-items vs justify-content
 
-\* Thuộc tính `justify-items` chỉ có `CSS Grid`
+\* Thuộc tính `justify-items` chỉ có trong `CSS Grid`
 
 Tương tự với như align-\*, justify-content và justify-items hoạt động y hệt, nhưng chỉ khác là điều chỉnh item/content theo trục ngang.
 

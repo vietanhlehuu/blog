@@ -62,6 +62,8 @@ Và giờ chúng ta sẽ thấy rõ sự khác nhau giữa `align-items` và `al
   </div>
 </div>
 
+\*\* **Lưu ý: align-content chỉ hoạt động khi container có thuộc tính flex-wrap có giá trị khác `no-wrap` (tức là `wrap` và `wrap-reverse`)**
+
 ## justify-items vs justify-content
 
 \* Thuộc tính `justify-items` chỉ có trong `CSS Grid`

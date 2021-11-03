@@ -62,6 +62,9 @@ function debounce(func, debounceTime) {
   let timeout
 
   return function (...arg) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
     timeout = setTimeout(() => {
       func(...arg)
     }, debounceTime)
@@ -82,6 +85,9 @@ function debounce(func, debounceTime) {
   let timeout
 
   return function (...arg) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
     timeout = setTimeout(() => {
       //=== UPDATED HERE===
       func.apply(this, arg)

@@ -21,8 +21,6 @@ Cấu trúc thư mục cơ bản của một project sẽ có như thế này:
     |- home
       |- index.js
   |- components
-  |- public
-  |
   .
   .
   |- public
@@ -69,8 +67,6 @@ Giờ chúng ta có thể để các components chung với thư mục chứa pa
     |- home
       |- index.page.js
   |- components
-  |- public
-  |
   .
   .
   |- public

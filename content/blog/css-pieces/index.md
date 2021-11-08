@@ -220,6 +220,8 @@ Một lần nữa, solution này sẽ là một ứng dụng của `CSS Grid`:
 }
 ```
 
+Ở đây, chúng ta cho phần `main-content` và `description` nằm chồng lên nhau, cùng 1 vị trí, như vậy Grid sẽ chọn kích thước của phần nào có kích thước lớn hơn.
+
 ## Gradient border
 
 Một UI bình thường như này:

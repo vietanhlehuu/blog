@@ -3,7 +3,7 @@ module.exports = {
     title: `VA Blog`,
     author: {
       name: `vietanhlehuu`,
-      summary: `Mọi nội dung đều là kinh nghiệm, ý kiến cá nhân!`,
+      summary: `Viết đủ thứ, từ lượm lặt cho đến kinh nghiệm cá nhân!`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
@@ -51,7 +51,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    'gatsby-plugin-postcss',
+    "gatsby-plugin-postcss",
     // {
     //   resolve: `gatsby-plugin-google-analytics`,
     //   options: {

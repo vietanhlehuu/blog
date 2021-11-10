@@ -98,4 +98,26 @@ function debounce(func, debounceTime) {
 
 ### 2. Typescript - Giữ typing cho params và return type của func
 
--- Later --
+Đối với Typescript, chúng ta có một chỉnh sửa nhỏ như thế này:
+
+Tại vì hàm debounce sẽ delay việc gọi hàm một thời gian, nên sẽ không có giá trị trả về tức thì được. Nếu muốn nhận giá trị trả về, chúng ta cần phải hiện thực hàm trả về `Promise`.
+
+Hãy hiện thực trả về Promise đi bạn nhé :) Trong phần dưới đây, sẽ hiện thực với hàm không có giá trị trả về (void).
+
+```ts
+function debounce<T extends (...agrs: any) => void>(
+  func: T,
+  debounceTime: number
+) {
+  let timeout: ReturnType<typeof setTimeout>
+
+  return function (this: any, ...arg: Parameters<T>) {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    timeout = setTimeout(() => {
+      func.apply(this, arg)
+    }, debounceTime)
+  }
+}
+```

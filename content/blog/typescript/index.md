@@ -1,8 +1,10 @@
 ---
 title: "[TS] Vài chiếc ghi chú dành cho TypeScript"
 date: "2021-11-20T00:02:05.010Z"
-description: ""
+description: "Bài này dành để ghi chú một số thứ mình thấy đáng lưu ý khi học và sử dụng TypeScript. Đây không phải là tutorial hướng dẫn sử dụng TS, bởi vậy bài này dành cho những bạn đã sử dụng TS và biết một số khái niệm thông dụng"
 ---
+
+Bài này dành để ghi chú một số thứ mình thấy đáng lưu ý khi học và sử dụng TypeScript. Đây không phải là tutorial hướng dẫn sử dụng TS, bởi vậy bài này dành cho những bạn đã sử dụng TS và biết một số khái niệm thông dụng.
 
 ### 0. Các kiểu cơ bản
 
@@ -14,7 +16,42 @@ Trong TS, ta có các type cơ bản là:
 4. null
 5. undefined
 6. unknown
-7. never
+7. any
+8. never
+
+Trong đó, có 3 loại mà chúng ta cần lưu ý là: `unknown`, `any` và `never`.
+
+- `any`: Khi một biến được khai báo với kiểu any, tức là biến đó có thể chứa bất kỳ giá trị nào. Đồng thời, biến với kiểu any cũng có thể gán cho những kiểu dữ liệu khác. Tức là:
+
+```ts
+function foo(n: number) {
+  // do something
+}
+let a: any = "lorem"
+let b: number
+
+b = a // hợp lệ
+foo(a) // hợp lệ
+```
+
+- `unknown`: Đối với kiểu này, nó khá giống với any, biến khai báo với unknown có thể chứa bất kỳ giá trị nào. Nhưng nó lại khác với any ở chuyện dùng nó. Muốn sử dụng giá trị của một biến unknown, Typescript bắt buộc phải xác định kiểu trước khi dùng.
+
+```ts
+function foo(n: number) {
+  // do something
+}
+let a: unknown = "lorem"
+let b: number
+
+b = a // báo lỗi, vì chưa xác định kiểu thật sự của a trước khi sử dụng
+
+if (typeof a === "number") {
+  b = a // hợp lệ
+  foo(a) // hợp lệ
+}
+```
+
+- `never`: Đây là một kiểu đặc biệt, khi mà biến được khai báo với kiểu này, không một giá trị nào có thể gán cho nó. Kiểu never thường ít được sử dụng trực tiếp, mà dùng để hệ thống bắt lỗi hoặc sử dụng trong generics.
 
 ## 1. Literal type
 
@@ -64,6 +101,8 @@ const request = {
 
 makeRequest(request.method, request.data)
 ```
+
+Khi sử dụng const sau một giá trị, tức ta đã biến giá trị đó thành literal type.
 
 ## 2. Function type
 
@@ -174,7 +213,7 @@ let a: { b: string } | { c: string }
 
 Ví dụ trên thể hiện union types. Biến a có kiểu là object và cấu trúc có thể linh hoạt 1 trong 2.
 
-Hoặc là `a: { b: string }` hoặc là `a: { c: string }`. Không thể tồn tại a với kiểu là combine cả 2.
+Hoặc là `a: { b: string }` hoặc là `a: { c: string }`. Không thể tồn tại a với kiểu là kết hợp cả 2.
 
 Có 3 trường hợp đặc biệt:
 
@@ -261,7 +300,7 @@ C = (A1 + A2) * B
 C = A1 * B + A2 * B
 ```
 
-Tất nhiên đó là sự liên tưởng, nhưng khi combine & và | thì cách hoạt động cũng tương tự như vậy, nên ta có
+Tất nhiên đó là sự liên tưởng, nhưng khi kết hợp & và | thì cách hoạt động cũng tương tự như vậy, nên ta có
 
 ```ts
 type C = ({ a: string } & { b: string }) | ({ a: number } & { b: string })
@@ -412,6 +451,366 @@ function foo(): number {
 }
 ```
 
-## 7. Generics
+## 7. keyof, typeof
 
-### 7.1 extends
+### 7.1 keyof
+
+- `keyof`: Sử dụng khi muốn lấy type của các keys của một type dạng object. Ví dụ:
+
+```ts
+type Obj = {
+  1: string
+  b: string
+  c: number
+}
+type Keys = keyof Obj
+// Keys = 1 | 'b' | 'c'
+```
+
+Các type keys sau khi sử dụng keyof có thể là number, string, symbol.
+
+Trong ví dụ trên, nếu chúng ta chỉ muốn lấy những keys thuộc kiểu string, thì có thể sử dụng intersection (&):
+
+```ts
+type Obj = {
+  1: string
+  b: string
+  c: number
+}
+type Keys = keyof Obj
+// Keys = 1 | 'b' | 'c'
+
+type StringKeys = Keys & string
+// Keys = 'b' | 'c'
+```
+
+Tại sao `Keys & string` lại chỉ trả về các type dạng string?
+
+```ts
+type StringKeys = Keys & string
+
+// tương đương
+
+type StringKeys = (1 | "b" | "c") & string
+
+// tương đương
+
+type StringKeys = (1 & string) | ("b" & string) | ("c" & string)
+
+// tương đương
+
+type StringKeys = never | "b" | "c"
+
+// tương đương
+
+type StringKeys = "b" | "c"
+```
+
+Trong đoạn code trên, có 2 điều cần chú ý:
+
+- Kết quả trả về khi sử dụng intersection: `"b" & string => "b"`
+- Kết quả trả về khi sử dụng union với never:
+  - Bất cứ type nào union với never cũng trả về chính type đó: `string | never => string`
+- Từ 2 quy luật trên, có thể rút ra quy luật chung như thế này:
+  - Khi union ta sẽ có kết quả là type rộng hơn
+  - Khi intersection ta sẽ có kết quả là type hẹp hơn
+
+Câu hỏi dành cho bạn:
+
+```ts
+type A = unknown | string // ???
+
+type A = unknown & string // ???
+```
+
+### 7.2 typeof
+
+- `typeof` dùng để lấy type của một giá trị.
+
+```ts
+const a = {
+  b: 1,
+  c: "Hello world",
+}
+
+type A = typeof a
+
+// Tương đương
+
+type A = {
+  b: number
+  c: string
+}
+```
+
+### 7.3 Lưu ý và ví dụ thực tế
+
+- Lưu ý:
+  - keyof sử dụng với type
+  - typeof sử dụng với giá trị (value)
+- Ví dụ thực tế: Trong một dự án React có sử dụng i18n, ta có rất nhiều file translation: `en.ts`, `vi.ts`,... Vấn đề cần giải quyết đó là làm sao đảm bảo các key trong file en và file vi phải giống nhau, không thể để một bên có và một bên không, gây ra lỗi khi hiển thị.
+
+```ts
+// file en.ts
+const translations = {
+  "Hello": "Hello",
+  "World: "World"
+}
+
+export translations
+```
+
+```ts
+// file vi.ts
+const translations = {
+  "Hello": "Xin chào",
+  "World: "Thế giới"
+}
+
+export translations
+```
+
+Ta có thể nhận thấy giữa 2 file không có ràng buộc gì với nhau.
+
+Đây là lúc chúng ta vận dụng kiến thức về typeof.
+
+```ts
+// file en.ts
+const translations = {
+  Hello: "Hello",
+  World: "World",
+}
+
+export type TranslationEn = typeof translations
+
+export default translations
+```
+
+```ts
+// file vi.ts
+import type { TranslationEn } from "./en.ts"
+
+const translations: TranslationEn = {
+  Hello: "Xin chào",
+  World: "Thế giới",
+}
+
+export default translations
+```
+
+## 8 Generics
+
+### 8.1 extends và conditional types
+
+Viết mãi mới đến phần `extends` 😅.
+
+> Chú ý: `extends` trong Generics khác với `extends` khi sử dụng để thừa kế với class, interface.
+
+Lấy một ví dụ như thế này.
+
+```ts
+type WithLastName<T> = T extends string ? `${string} ${T}` : never
+
+let name1: WithLastName<"Le Huu">
+
+name1 = "Viet Anh Le Huu" // hợp lệ
+
+name1 = "Dao Mai" // lỗi
+
+let name2: WithLastName<123>
+
+name2 = 123 // lỗi
+```
+
+Trong ví dụ này ta có 3 thứ để phân tích
+
+- conditional types
+- extends
+- template literal types
+
+Đầu tiên là với `conditional types`, đó chỉ là một thuật ngữ, cách hoạt động của nó giống như toán tử ternary `A ? B : C` trong JS.
+
+Đối với vế A trong conditional types đó, chúng ta đang sử dụng `extends`. Thường cú pháp sẽ là `D extends E`, với D là một type được truyền vào type generics. Nghĩa của nó là D có phải là một type cụ thể hơn của E hay không.
+
+Ví dụ:
+
+`3 extends number`: Trong vô vàn các giá trị (type) của number, thì 3 chính là một giá trị cụ thể hơn của nó.
+
+```ts
+type User = {
+  name: string;
+}
+
+T extends User
+
+{ name: string; age: number } extends User // true
+
+```
+
+Ví dụ này thì có phần khó hiểu hơn, với type User khi sử dụng với extends, nó sẽ được diễn dịch như thế này: Nhận 1 type T với điều kiện tối thiểu là một object type có ít nhất những thuộc tính như thế này: `{ name: string }`. Bởi vậy, `{ name: string; age: number }` sẽ thỏa điều kiện đó.
+
+Xem xét thêm các ví dụ bên dưới (Ví dụ được lấy từ [TS course](https://www.typescript-training.com/course/intermediate-v1/05-conditional-types/#quiz-expressing-conditions)):
+
+```ts
+1. 64 extends number
+
+2. number extends 64
+
+3. string[] extends any
+
+4. string[] extends any[]
+
+5. never extends any
+
+6. any extends any
+
+7. Date extends { new (...args: any[]): any }
+
+8. typeof Date extends { new (...args: any[]): any }
+```
+
+Hãy thử trả lời trước khi lướt xem đáp án nào :)
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+Đáp án và giải thích:
+
+1. `64 extends number` là true, 64 là một literal type cụ thể hơn của number.
+
+2. `number extends 64` là false, number không thể là type cụ thể hơn của 64, nếu có 1 type T thỏa mãn `T extends 64` thì chỉ có thể là type `64`.
+
+3. `string[] extends any` là true, bất cứ type gì cũng đều xác định và cụ thể type any.
+
+4. `string[] extends any[]` là true, tương tự như trên.
+
+5. `never extends any` là true, never là type cụ thể nhất trong tất cả các type, đại diện cho không có gì :D.
+
+6. `any extends any` là true, any là type vừa khớp với any.
+
+7. `Date extends { new (...args: any[]): any }` là false. type Date thể hiện là type của 1 instance của Date, không phải là type của một constructor function.
+
+8. `typeof Date extends { new (...args: any[]): any }` là true. typeof Date thể hiện type của một constructor function/class.
+
+Và thứ cuối cùng cần chú ý là [template literal types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html).
+
+### 8.2 Type inference
+
+Trong quá trình làm việc, mình có một bài toán và được rút gọn như dưới đây:
+
+```ts
+// file generated-types.ts
+type Product = {
+  name: string
+}
+
+export type Data = Product[] | null
+
+// file component.ts
+import { Data } from "./generated-types.ts"
+
+const data: Data
+
+function logProduct(product: any) {}
+
+data?.forEach(product => logProduct(product))
+```
+
+Vấn đề của bài toán trên cần giải quyết đó là typing (khai báo kiểu) cho tham số product của hàm logProduct. Chúng ta bị một ràng buộc là không thể chỉnh sửa file `generated-types.ts`, chính vì thế, chúng ta không thể `export type Product` ra bên ngoài được. (Không thể chỉnh sửa file generated, bởi vì nó được backend sinh ra, và mỗi lần cập nhật sẽ xóa hết nội dung cũ thay bằng nội dung mới, những gì chỉnh sửa trong file đó sẽ mất.)
+
+Phân tích kỹ hơn, bài toán chúng ta cần làm là tách type Product từ type Data.
+
+Solution đầu tiên, đơn giản nhưng không mang tính scale.
+
+```ts
+type ProductList = Exclude<Data, null>
+
+type Product = ProductList[number]
+```
+
+Bằng cách này, đầu tiên, sẽ loại bỏ type null trong Data để chỉ còn lại Product[] và gán cho type ProductList. Sau đó, để lấy type của mỗi item trong list, ta sử dụng cú pháp [number]. Như vậy, chúng ta đã lấy được type của Product.
+
+Nhưng tại sao mình lại nhận định đây là một solution không scale. Nếu sau đó phía backend cập nhật type của Data.
+
+```ts
+type Data = Product[] | string | null
+```
+
+Phần code chúng ta đã thực hiện `Exclude<Data, null>` không còn đúng nữa.
+
+Solution thứ 2 sẽ hiệu quả hơn, chúng ta sẽ xem trước và phân tích sau:
+
+```ts
+type ExtractElementType<T> = T extends (infer U)[] ? U : never
+
+type Product = ExtractElementType<Data>
+```
+
+Thoạt đầu nhìn sẽ hơi khó hiểu, nhưng hãy cùng phân tích:
+
+Chúng ta tạo ra một type generics `ExtractElementType` nhận vào một type `T`. Type T sẽ được xem xét điều kiện để trả ra type cuối cùng. Điều kiện sẽ là T có phải là một type cụ thể, có dạng là U[] hay không, với U sẽ được TS cố gắng infer(suy luận ra). Nếu đáp ứng điều kiện, kết quả sẽ trả về là type U được infer đó, còn không sẽ trả về never.
+
+Tiếp theo, ta sử dụng nó với Data, các bước nó tạo ra kết quả như sau:
+
+```ts
+type Product = ExtractElementType<Data>
+
+// tương đương
+type Product = ExtractElementType<Product[] | string | null>
+
+// tương đương
+type Product =
+  | ExtractElementType<Product[]>
+  | ExtractElementType<string>
+  | ExtractElementType<null>
+
+// tương đương
+type Product = Product | never | never
+
+// tương đương
+type Product = Product
+```
+
+Điểm mấu chốt để hiểu ở đây chính là cách hoạt động của union và kết quả union khi kết hợp với never. Đặc biệt, đó là sự tồn tại của từ khóa `infer`, TS sẽ cố gắng giúp chúng ta suy luận ra một type nào đó.
+
+## 9. Indexed Access Types
+
+Như đã gặp trong các ví dụ trên, chúng ta có thể lấy type của một phần tử, thuộc tính trong một type khác bằng cách sử dụng cú pháp `indexed access`.
+
+```ts
+type A = {
+  name: "Viet Anh" | "Anh Le"
+}
+type B = [number, string, boolean]
+
+type Name = A["name"] // "Viet Anh" | "Anh Le"
+
+type TuppleItem = B[number] // number | string | boolean
+```
+
+10. Mapped Types
+
+```ts
+type A = { [k: string]: string }
+
+type B = { [k in "name" | "value"]: any }
+
+type CompoentProps = { [k in keyof Window]: Window[k] }
+```

@@ -338,7 +338,9 @@ strong {
 
 :not(pre) > code[class*="language-"] {
   background-color: var(--color-primary) !important;
-  padding: 0 2px !important;
+  padding: 5px 10px !important;
+  margin: 5px !important;
+  display: inline-block;
 }
 
 .token.comment {

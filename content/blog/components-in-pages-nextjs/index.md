@@ -76,3 +76,7 @@ Giờ chúng ta có thể để các components chung với thư mục chứa pa
 
 - Tất cả các pages đều phải áp dụng convention này
 - Và những file như \_app, \_document đều phải áp dụng convention này
+
+## Kết luận
+
+Đây chỉ là một solution cho nhu cầu này, có lẽ chúng ta sẽ không cần đến để project đơn giản hơn.

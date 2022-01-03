@@ -340,7 +340,6 @@ Trong phần này mình chỉ liệt kê sự khác nhau giữa interface và ty
 - Type có thể extend một type, interface khác sử dụng `intersection` (&)
 - Interface có thể extend một interface, type khác sử dụng `extends`
 - Class có thể implements type và interface
--
 
 ### 4.2 Interface chỉ định nghĩa `object type`
 
@@ -814,3 +813,5 @@ type B = { [k in "name" | "value"]: any }
 
 type CompoentProps = { [k in keyof Window]: Window[k] }
 ```
+
+[Xem thêm](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)

@@ -31,11 +31,10 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "gatsby-plugin-postcss": "^5.0.0",
-    "postcss": "^8.3.11",
-    "prettier": "^2.4.1",
-    "tailwindcss": "^2.2.19"
+    "autoprefixer": "^10.4.1",
+    "gatsby-plugin-postcss": "^5.4.0",
+    "postcss": "^8.4.5",
+    "tailwindcss": "^3.0.8"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
   "keywords": [

@@ -7,6 +7,9 @@ module.exports = {
       boxShadow: {
         "border-collapse": "0 0 0 4px #8b5cf6",
       },
+      backgroundImage: {
+        primary: "linear-gradient(to right, red, yellow)",
+      },
     },
   },
   variants: {

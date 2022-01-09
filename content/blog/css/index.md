@@ -97,6 +97,76 @@ Cuối cùng, nó sẽ dịch chuyển background image để 2 điểm đó tr�
 
 Và chúng ta có 2 điểm 25% 25% của phần tử và background image của nó trùng nhau.
 
+## isolation
+
+Thuộc tính này rất hữu dụng khi sử dụng kèm `z-index`. Nó sẽ tạo một lớp stacking context mới cho phần tử.
+
+Dưới đây là ví dụ mình thường dùng nhất trong các project, đó là sử dụng img như background.
+
+```html
+<div class="container">
+  <img src="/images/bg.jpeg" />
+  <h1>This is a title</h1>
+</div>
+```
+
+```css
+.container {
+  position: relative;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: red;
+}
+
+.container img {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+<div class="relative h-[300px] flex items-center justify-center bg-red-400 mb-4">
+  <img src="/images/bg.jpeg" class="absolute inset-0 w-full h-full object-cover z-[-1]">
+  <h1 class="text-green-500">This is a title</h1>
+</div>
+
+Việc sử dụng z-index -1 đã làm cho img nằm hẳn dưới nền của container. Trong khi điều chúng ta muốn là chỉ nằm dưới các phần tử khác trong container mà thôi. Việc này nguyên nhân tại vì container dù sử dụng position relative nhưng không tạo ra một stacking context mới. Cách thông thường nhất để tạo một stacking context đó là sử dụng z-index kèm với position.
+
+Nhưng chúng ta ở đây không muốn set z-index cho container bằng một số nào cả. Lúc này, sử dụng isolate là một giải pháp.
+
+```css
+.container {
+  position: relative;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: red;
+  isolation: isolate;
+}
+
+.container img {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+<div class="relative h-[300px] flex items-center justify-center bg-red-400 mb-4 isolate">
+  <img src="/images/bg.jpeg" class="absolute inset-0 w-full h-full object-cover z-[-1]">
+  <h1 class="text-green-500">This is a title</h1>
+</div>
+
 <!-- ## display: contents
 
 Huhu

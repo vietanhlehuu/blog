@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin")
+
 module.exports = {
   mode: "jit",
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./content/**/*.md"],
@@ -15,7 +17,18 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities, theme }) {
+      addUtilities({
+        ".writing-vlr": {
+          "writing-mode": "vertical-lr",
+        },
+        ".writing-vrl": {
+          "writing-mode": "vertical-rl",
+        },
+      })
+    }),
+  ],
   corePlugins: {
     preflight: false,
   },

@@ -132,7 +132,7 @@ Dưới đây là ví dụ mình thường dùng nhất trong các project, đó
 ```
 
 <div class="relative h-[300px] flex items-center justify-center bg-red-400 mb-4">
-  <img src="/images/bg.jpeg" class="absolute inset-0 w-full h-full object-cover z-[-1]">
+  <img src="/images/bg-min.jpeg" class="absolute inset-0 w-full h-full object-cover z-[-1]">
   <h1 class="text-green-500">This is a title</h1>
 </div>
 
@@ -163,21 +163,180 @@ Nhưng chúng ta ở đây không muốn set z-index cho container bằng một 
 ```
 
 <div class="relative h-[300px] flex items-center justify-center bg-red-400 mb-4 isolate">
-  <img src="/images/bg.jpeg" class="absolute inset-0 w-full h-full object-cover z-[-1]">
+  <img src="/images/bg-min.jpeg" class="absolute inset-0 w-full h-full object-cover z-[-1]">
   <h1 class="text-green-500">This is a title</h1>
 </div>
 
-<!-- ## display: contents
-
-Huhu
-
 ## writing-mode
 
-## word-break, break
+Thuộc tính này chắc là ít dùng, nhưng khi gặp một số giao diện thì nó sẽ khá hữu dụng.
+
+Ví dụ chúng ta có giao diện dưới đây:
+
+<div class="flex mb-4">
+  <img src="/images/bg-min.jpeg" class="flex-grow object-cover w-[80%]">
+  <h1 class="m-0 ml-2 text-center text-green-500 writing-vlr">This is a title</h1>
+</div>
+
+Để chữ nằm dọc vậy thì cách nhiều người nghĩ tới nhất có lẽ là dùng transform rotate. Tuy nhiên, nó sẽ có hạn chế, vì khi rotate từ chiều ngang sang chiều dọc thì nó không chiếm không gian của chiều dọc, do đó nếu text dài hơn ảnh thì sẽ bị overflow.
+
+Cách dễ thứ hai đó chính là dùng `writing-mode`.
+
+Xem qua docs của nó thì sẽ có 3 giá trị:
+
+```css
+.wm {
+  writing-mode: horizontal-tb;
+  writing-mode: vertical-lr;
+  writing-mode: vertical-rl;
+}
+```
+
+Chúng ta sẽ phân tích từng giá trị.
+
+Đầu tiên là `horizontal-tb`, đây là giá trị mặc định, nó sẽ hiển thị chữ theo chiều ngang, từ trái sang phải hay phải sang trái là tùy direction mình cài (mặc định là left to right).
+
+Tiếp theo là `vertical-lr` và `vertical-rl`, lúc này chữ sẽ được viết theo chiều dọc.
+
+2 ví dụ minh họa phía dưới lần lượt sử dụng vertical-lr và vertical-rl.
+
+<div class="flex mb-4">
+  <img src="/images/bg-min.jpeg" class="flex-grow object-cover w-[10%]">
+  <h1 class="m-0 ml-2 text-center text-green-500 writing-vlr">This is a title</h1>
+</div>
+
+<div class="flex mb-4">
+  <img src="/images/bg-min.jpeg" class="flex-grow object-cover w-[10%]">
+  <h1 class="m-0 ml-2 text-center text-green-500 writing-vrl">This is a title</h1>
+</div>
+
+Nhìn có vẻ không khác gì, nhưng để thấy được sự khác nhau, chúng ta cần viết dài lên để nó rơi thành nhiều cột.
+
+<div class="flex mb-4">
+  <img src="/images/bg-min.jpeg" class="flex-grow object-cover w-[10%]">
+  <h1 class="m-0 ml-2 text-center text-green-500 writing-vlr">
+    This is a really <br> long title
+  </h1>
+</div>
+
+<div class="flex mb-4">
+  <img src="/images/bg-min.jpeg" class="flex-grow object-cover w-[10%]">
+  <h1 class="m-0 ml-2 text-center text-green-500 writing-vrl">
+   This is a really <br> long title
+  </h1>
+</div>
+
+Và chúng ta sẽ thấy được sự khác biệt của left to right và right to left.
+
+## display: contents
+
+Đây là một loại display đặc biệt, khi mà nó sẽ làm cho container (nơi khai báo display: contents) sẽ coi như biến mất, chỉ còn các phần tử con bên trong được trải phẳng (flat) ra ngoài.
+
+Vậy thuộc tính này có gì hữu dụng. Đó là đối với các trường hợp responsive, layout ở mobile với desktop khác nhau một cách rõ ràng.
+
+Lấy ví dụ không mấy đẹp như dưới đây, ở desktop chúng ta sẽ có một layout như thế này:
+
+<div class="grid grid-cols-2 gap-4 p-4 mb-4 border-2 border-blue-400">
+  <div>
+  <img src="/images/bg-min.jpeg" />
+  </div>
+  <div class="p-2 text-black bg-purple-200">
+    <h2 class="m-0 text-center text-black">Title</h2>
+    <p class="text-[14px] m-0 mt-4">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?
+    </p>
+  </div>
+</div>
+
+Về mobile chúng ta có như này:
+
+<div class="grid gap-4 p-4 mb-4 border-2 border-blue-400">
+  <h2 class="m-0 text-center ">Title</h2>
+  <div class="flex">
+    <img src="/images/bg-min.jpeg" />
+  </div>
+  <p class="text-[14px] m-0 mt-4">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?
+  </p>
+</div>
+
+Nếu "may mắn" bạn sẽ gặp phải design như thế này. Bởi vì khu vực text ở desktop có background, nên html, css tối thiểu sẽ phải như thế này.
+
+```html
+<div class="container">
+  <img src="..." />
+  <div class="content">
+    <h2>Title</h2>
+    <p>Lorem....</p>
+  </div>
+</div>
+```
+
+```css
+.container {
+  display: flex;
+  /* ... */
+}
+.content {
+  background: purple;
+  /* ... */
+}
+```
+
+Vậy khi về mobile làm sao đưa `h2` lên trên ảnh được, khi mà nó đang nằm trong `content`? Lúc này chúng ta sẽ áp dụng được display: contents.
+
+```css
+... @media (max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    /* ... */
+  }
+  .content {
+    background: purple;
+    display: contents;
+    /* ... */
+  }
+  .content h2 {
+    order: -1;
+  }
+}
+```
+
+<div class="flex flex-col gap-4 p-4 mb-4 border-2 border-blue-400">
+  <div class="flex">
+    <img src="/images/bg-min.jpeg" />
+  </div>
+  <div class="p-2 bg-purple-200 contents">
+    <h2 class="m-0 text-center order-[-1]">Title</h2>
+    <p class="text-[14px] m-0">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?
+    </p>
+  </div>
+</div>
 
 ## all
 
-## initial, inherit, unset, revert
+Thuộc tính này cũng khá hay ho. Khi mình sử dụng những generator để viết blog như này, thì rất nhiều style đã được định dạng sẵn. Ví dụ như table, nhiều lúc mình viết tutorial để hướng dẫn css với table, nhưng table hiện ra UI đã bị chỉnh sửa style, mình phải đè style lại cho từng thuộc tính rấy mệt.
+
+Lúc này, nhu cầu của mình là reset tất cả các thuộc tính về giá trị ban đầu của nó, lúc chưa có bất style nào.
+
+Và thuộc tính `all` sẽ giúp mình được chuyện đó.
+
+```css
+table {
+  all: unset;
+}
+```
+
+Nó còn thêm vài giá trị nữa, bạn tìm hiểu thêm tại đây: https://developer.mozilla.org/en-US/docs/Web/CSS/all
+
+<!-- ## initial, inherit, unset, revert
+
+Đây không phải thuộc tính, mà là giá trị mà hầu hết các thuộc tính css đều có, vậy chúng có nghĩa là gì? -->
+
+<!--
+## word-break, break
 
 ## scroll snap
 

@@ -173,4 +173,14 @@ Huhu
 
 ## writing-mode
 
-## word-break, break -->
+## word-break, break
+
+## all
+
+## initial, inherit, unset, revert
+
+## scroll snap
+
+## overscroll-behavior
+
+-->

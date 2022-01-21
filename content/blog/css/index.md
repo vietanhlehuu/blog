@@ -329,17 +329,133 @@ table {
 }
 ```
 
-Nó còn thêm vài giá trị nữa, bạn tìm hiểu thêm tại đây: https://developer.mozilla.org/en-US/docs/Web/CSS/all
+Ngoài ra, `all` còn có những giá trị có thể khác nữa là: `initial`, `inherit` và `revert`.
 
-<!-- ## initial, inherit, unset, revert
+Chúng ta sẽ thảo luận chi tiết ý nghĩa các giá trị đó trong mục bên dưới.
 
-Đây không phải thuộc tính, mà là giá trị mà hầu hết các thuộc tính css đều có, vậy chúng có nghĩa là gì? -->
+## initial, inherit, unset, revert
 
-<!--
-## word-break, break
+Đây không phải thuộc tính, mà là giá trị mà có lẽ tất cả các thuộc tính css đều có, vậy chúng có nghĩa là gì?
 
-## scroll snap
+- `initial`: Đây là một giá trị ám chỉ giá trị mặc định của một thuộc tính. Ví dụ, `font-weight` sẽ có giá trị mặc định là `normal`, tức là 400. Khi chúng ta sử dụng `font-weight: initial` nó sẽ tương đương với `font-weight: normal`.
+
+Bảng các giá trị mặc định của các thuộc tính được liệt kê ở đây: https://www.w3.org/TR/CSS2/propidx.html
+
+- `inherit`: Dịch ra có nghĩa là kế thừa, tức là thuộc tính nào sử dụng giá trị này sẽ có kết quả là giá trị như các phần tử bọc bên ngoài nó. Trở lại thuộc tính `font-weight`, là một thuộc tính có tính chất kế thừa, mặc định nó sẽ không mang giá trị `initial` mà sẽ là `inherit`, kế thừa giá trị từ các phần tử bọc bên ngoài nó.
+  Tất nhiên, nếu chúng ta muốn nó mang giá trị mặc định, chúng ta có thể set `font-weight: initial` như ở trên.
+
+Tuy các thuộc tính thuộc loại kế thừa, giá trị nó thể hiện sẽ là `inherit`, nhưng nếu là thẻ `html`, tức là root, nó không thể kế thừa vì nó là phần tử ngoài cùng. Lúc này, các thuộc tính (thuộc loại inherit) dành cho html sẽ mang giá trị initial.
+
+- `unset`: Khi sử dụng giá trị này, nó sẽ set lại giá trị của thuộc tính là `inherit` nếu thuộc tính đó thuộc loại kế thừa, còn không sẽ là `initial`. Tức là nó sẽ reset về initial hoặc inherit tùy loại thuộc tính.
+
+```css
+.a {
+  font-weight: unset;
+  /*tương đương với*/
+  font-weight: inherit;
+}
+.b {
+  display: unset;
+  /*tương đương với*/
+  display: initial;
+}
+```
+
+- `revert`: Đây là một giá trị đặc biệt, tương tự như `unset`. Tuy nhiên, thay vì chuyển thành initial hay inherit, nó sẽ chuyển về giá trị mặc định mà trình duyệt đã quy định cho thuộc tính đó.
+
+Ví dụ, nếu chúng ta reset giá trị display dành cho table sử dụng revert:
+
+```css
+table {
+  display: revert;
+}
+```
+
+display không phải thuộc tính dạng kế thừa, nên nếu dùng unset, chúng ta sẽ set nó về initial, cụ thể là inline. Nhưng vì dùng revert, nó sẽ reset về giá trị mà trình duyệt quy định cho nó:
+
+```css
+table {
+  display: revert;
+}
+
+/* Tương đương với */
+
+table {
+  display: table;
+}
+```
 
 ## overscroll-behavior
 
+Ở dưới mình có một box màu xanh và một box màu vàng, box xanh bọc box vàng. Và 2 box hiện có content dài hơn chiều cao của box, nên bạn có thể sử dụng chuột để scroll trong box vàng hay box xanh.
+
+Nếu bạn thử scroll trong box vàng, đến đáy của box vàng, nó sẽ tự động tiếp tục scroll box xanh.
+
+<div class="h-[400px] bg-blue-200 grid grid-cols-2 overflow-auto mb-4 text-black">
+  <div class="h-[600px] p-4 flex flex-col">
+    Something good
+    <span class="mt-auto">
+      Blue box bottom
+    </span>
+  </div>
+  <div class="h-[200px] bg-yellow-200 overflow-auto">
+    <div class="h-[300px] p-4 flex flex-col">
+    Something different
+    <span class="mt-auto">
+      Yellow box bottom
+    </span>
+    </div>
+  </div>
+</div>
+
+Vậy, nếu chúng ta muốn scroll trong box vàng, đến đáy thì dừng lại, dù scroll tiếp (chuột đang ở trong box vàng) thì không làm cho box xanh scroll phải làm sao?
+
+```css
+.yellow-box {
+  overscroll-behavior: contain;
+}
+```
+
+Như vậy, chúng ta sẽ chặn được việc scroll tiếp tục dù chạm đáy box vàng.
+
+overscroll-behavior còn có một giá trị nữa là `none`. Nó tương tự như `contain`, nhưng disable thêm hiệu ứng khác nữa.
+
+Cụ thể, à mà bạn có thể tự đọc ở đây để có video minh họa: https://css-tricks.com/almanac/properties/o/overscroll-behavior/.
+
+<!--
+## scroll snap
+
+Ví dụ bạn có một danh sách cái item scroll ngang như này:
+
+<div class="grid grid-flow-col gap-4 p-4 mb-4 overflow-auto bg-yellow-200">
+  <div class="w-[100px] h-[100px] bg-blue-400"> </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+  <div class="w-[100px] h-[100px] bg-blue-400" > </div>
+</div>
+
+Và bạn dĩ nhiên có thể scroll thoải mái, thích dừng ở đâu cũng được. Tuy nhiên, nếu chúng ta muốn người dùng mỗi lần scroll phải đi hết một item thì sao?
+
+```css
+.container {
+
+}
+
+``` -->
+
+<!-- ## word-break, work-wrap
+
+````css
+.wb {
+  word-break: break-all;
+  word-break: keep-all;
+  word-break: break-word;
+}
+```
 -->

@@ -418,6 +418,23 @@ Vậy, nếu chúng ta muốn scroll trong box vàng, đến đáy thì dừng l
 
 Như vậy, chúng ta sẽ chặn được việc scroll tiếp tục dù chạm đáy box vàng.
 
+<div class="h-[400px] bg-blue-200 grid grid-cols-2 overflow-auto mb-4 text-black">
+  <div class="h-[600px] p-4 flex flex-col">
+    Something good
+    <span class="mt-auto">
+      Blue box bottom
+    </span>
+  </div>
+  <div class="h-[200px] bg-yellow-200 overflow-auto overscroll-contain">
+    <div class="h-[300px] p-4 flex flex-col">
+    Something different
+    <span class="mt-auto">
+      Yellow box bottom
+    </span>
+    </div>
+  </div>
+</div>
+
 overscroll-behavior còn có một giá trị nữa là `none`. Nó tương tự như `contain`, nhưng disable thêm hiệu ứng khác nữa.
 
 Cụ thể, à mà bạn có thể tự đọc ở đây để có video minh họa: https://css-tricks.com/almanac/properties/o/overscroll-behavior/.
@@ -458,4 +475,6 @@ Và bạn dĩ nhiên có thể scroll thoải mái, thích dừng ở đâu cũn
   word-break: break-word;
 }
 ```
+
+## animation-fill-mode
 -->

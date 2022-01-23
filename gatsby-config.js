@@ -130,7 +130,7 @@ module.exports = {
         // https://css-tricks.com/meta-theme-color-and-trickery/
         theme_color: `#0c91eb`,
         display: `minimal-ui`,
-        icon: `src/images/avt.jpeg`, // This path is relative to the root of the site.
+        icon: `src/images/logo.jpeg`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -140,7 +140,7 @@ module.exports = {
     //   resolve: "gatsby-plugin-offline",
     //   options: {
     //     workboxConfig: {
-    //       globPatterns: ["**/avt.jpeg"],
+    //       globPatterns: ["**/logo.jpeg"],
     //     },
     //   },
     // },

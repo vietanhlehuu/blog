@@ -36,7 +36,7 @@ const Bio = () => {
         className="bio-avatar"
         layout="fixed"
         formats={["auto", "webp", "avif"]}
-        src="../images/avt.jpeg"
+        src="../images/logo.jpeg"
         width={50}
         height={50}
         quality={95}
@@ -44,9 +44,12 @@ const Bio = () => {
       />
       {author?.name && (
         <p>
-          Được viết bởi <a href={`${social?.facebook || ``}`}>
-            <strong>{author.name}</strong></a> <br />{author?.summary || null}
-
+          Được viết bởi{" "}
+          <a href={`${social?.facebook || ``}`}>
+            <strong>{author.name}</strong>
+          </a>{" "}
+          <br />
+          {author?.summary || null}
         </p>
       )}
     </div>

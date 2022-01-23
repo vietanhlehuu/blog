@@ -131,19 +131,18 @@ module.exports = {
         theme_color: `#0c91eb`,
         display: `minimal-ui`,
         icon: `src/images/avt.jpeg`, // This path is relative to the root of the site.
-        cache_busting_mode: "none",
       },
     },
     `gatsby-plugin-react-helmet`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    {
-      resolve: "gatsby-plugin-offline",
-      options: {
-        workboxConfig: {
-          globPatterns: ["**/avt.jpeg"],
-        },
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-offline",
+    //   options: {
+    //     workboxConfig: {
+    //       globPatterns: ["**/avt.jpeg"],
+    //     },
+    //   },
+    // },
   ],
 }

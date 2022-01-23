@@ -5,8 +5,8 @@ module.exports = {
       name: `vietanhlehuu`,
       summary: `Viết đủ thứ, từ lượm lặt cho đến kinh nghiệm cá nhân!`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `Đây là blog cá nhân của Việt Anh, viết đủ thứ, từ lượm lặt cho đến kinh nghiệm cá nhân!`,
+    siteUrl: `https://blog.lehuuvietanh.com/`,
     social: {
       facebook: `https://facebook.com/vietanhlehuu`,
     },
@@ -114,7 +114,7 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
-            title: "Gatsby Starter Blog RSS Feed",
+            title: "Viet Anh Blog RSS Feed",
           },
         ],
       },
@@ -122,20 +122,28 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `VA Blog`,
+        short_name: `VA Blog`,
         start_url: `/`,
-        background_color: `#ffffff`,
+        background_color: `#282c35`,
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
         theme_color: `#0c91eb`,
         display: `minimal-ui`,
         icon: `src/images/avt.jpeg`, // This path is relative to the root of the site.
+        cache_busting_mode: "none",
       },
     },
     `gatsby-plugin-react-helmet`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-plugin-offline",
+      options: {
+        workboxConfig: {
+          globPatterns: ["**/avt.jpeg"],
+        },
+      },
+    },
   ],
 }

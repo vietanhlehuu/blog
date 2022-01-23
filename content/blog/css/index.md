@@ -339,7 +339,7 @@ Chúng ta sẽ thảo luận chi tiết ý nghĩa các giá trị đó trong m�
 
 - `initial`: Đây là một giá trị ám chỉ giá trị mặc định của một thuộc tính. Ví dụ, `font-weight` sẽ có giá trị mặc định là `normal`, tức là 400. Khi chúng ta sử dụng `font-weight: initial` nó sẽ tương đương với `font-weight: normal`.
 
-Bảng các giá trị mặc định của các thuộc tính được liệt kê ở đây: https://www.w3.org/TR/CSS2/propidx.html
+Bảng các giá trị mặc định của các thuộc tính được liệt kê ở đây: [Link](https://www.w3.org/TR/CSS2/propidx.html)
 
 - `inherit`: Dịch ra có nghĩa là kế thừa, tức là thuộc tính nào sử dụng giá trị này sẽ có kết quả là giá trị như các phần tử bọc bên ngoài nó. Trở lại thuộc tính `font-weight`, là một thuộc tính có tính chất kế thừa, mặc định nó sẽ không mang giá trị `initial` mà sẽ là `inherit`, kế thừa giá trị từ các phần tử bọc bên ngoài nó.
   Tất nhiên, nếu chúng ta muốn nó mang giá trị mặc định, chúng ta có thể set `font-weight: initial` như ở trên.
@@ -437,7 +437,7 @@ Như vậy, chúng ta sẽ chặn được việc scroll tiếp tục dù chạm
 
 overscroll-behavior còn có một giá trị nữa là `none`. Nó tương tự như `contain`, nhưng disable thêm hiệu ứng khác nữa.
 
-Cụ thể, à mà bạn có thể tự đọc ở đây để có video minh họa: https://css-tricks.com/almanac/properties/o/overscroll-behavior/.
+Cụ thể, à mà bạn có thể tự đọc ở đây để có video minh họa: [Link](https://css-tricks.com/almanac/properties/o/overscroll-behavior/).
 
 <!--
 ## scroll snap

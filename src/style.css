@@ -341,10 +341,15 @@ img {
 }
 
 :not(pre) > code[class*="language-"] {
-  background-color: var(--color-primary) !important;
+  /* background-color: var(--color-primary) !important; */
+  background-color: gray !important;
+  color: white;
   padding: 5px 10px !important;
   margin: 5px !important;
   display: inline-block;
+  border: 2px solid white;
+  text-shadow: none;
+  box-shadow: inset 0 -3px 0 0 white;
 }
 
 .token.comment {

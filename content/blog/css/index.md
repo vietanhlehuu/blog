@@ -138,7 +138,7 @@ Dưới đây là ví dụ mình thường dùng nhất trong các project, đó
 
 Việc sử dụng z-index -1 đã làm cho img nằm hẳn dưới nền của container. Trong khi điều chúng ta muốn là chỉ nằm dưới các phần tử khác trong container mà thôi. Việc này nguyên nhân tại vì container dù sử dụng position relative nhưng không tạo ra một stacking context mới. Cách thông thường nhất để tạo một stacking context đó là sử dụng z-index kèm với position.
 
-Nhưng chúng ta ở đây không muốn set z-index cho container bằng một số nào cả. Lúc này, sử dụng isolate là một giải pháp.
+Nhưng chúng ta ở đây không muốn set z-index cho container bằng một số nào cả. Lúc này, sử dụng isolation là một giải pháp.
 
 ```css
 .container {
@@ -317,7 +317,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, ratione?Lore
 
 ## all
 
-Thuộc tính này cũng khá hay ho. Khi mình sử dụng những generator để viết blog như này, thì rất nhiều style đã được định dạng sẵn. Ví dụ như table, nhiều lúc mình viết tutorial để hướng dẫn css với table, nhưng table hiện ra UI đã bị chỉnh sửa style, mình phải đè style lại cho từng thuộc tính rấy mệt.
+Thuộc tính này cũng khá hay ho. Khi mình sử dụng những generator để viết blog như này, thì rất nhiều style đã được định dạng sẵn. Ví dụ như table, nhiều lúc mình viết tutorial để hướng dẫn css với table, nhưng table hiện ra UI đã bị chỉnh sửa style, mình phải đè style lại cho từng thuộc tính rất mệt.
 
 Lúc này, nhu cầu của mình là reset tất cả các thuộc tính về giá trị ban đầu của nó, lúc chưa có bất style nào.
 

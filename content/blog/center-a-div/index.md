@@ -233,6 +233,30 @@ Test:
   </div>
 </div>
 
+## Cách 10: Sử dụng grid template
+
+```css
+.container {
+  display: grid;
+  grid-template-areas:
+    ". . ."
+    ". element ."
+    ". . .";
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.element {
+  grid-area: element;
+}
+```
+
+<div class="p-4 mb-10 w-full bg-blue-500 h-[200px] grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_1fr]" style="grid-template-areas: '. . .'
+    '. element .'
+    '. . .'">
+  <div class="p-4 bg-green-500" style="grid-area: element;">Element</div>
+</div>
+
 # Lời kết
 
 Tùy trường hợp mà ta lại sử dụng những cách khác nhau cho mục đích center element: nội dung động, nhiều phần tử,...

@@ -2,6 +2,7 @@
 title: "[CSS] Center a div"
 date: "2022-03-03T11:39:32.239Z"
 description: "Làm web thì hẳn ai cũng sẽ phải center element sử dụng CSS, còn nhớ năm nào mình đi phỏng vấn VNG và được hỏi có bao nhiêu cách để center 1 cái div trong 1 cái div. Mình ngồi cười và sau đó đứng dậy đi về."
+featuredImage: ./img.jpeg
 ---
 
 ![Center a div](./img.jpeg)

@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import DefaultImg from "../images/logo.jpeg"
 
-const Seo = ({ description, lang, meta, title }) => {
+const Seo = ({ description, lang, meta, title, image }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -30,6 +30,7 @@ const Seo = ({ description, lang, meta, title }) => {
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
+  const metaImage = image || DefaultImg
 
   return (
     <Helmet
@@ -73,15 +74,15 @@ const Seo = ({ description, lang, meta, title }) => {
         },
         {
           property: `og:image`,
-          content: DefaultImg,
+          content: metaImage,
         },
         {
           property: `twitter:image`,
-          content: DefaultImg,
+          content: metaImage,
         },
         {
           property: `image`,
-          content: DefaultImg,
+          content: metaImage,
         },
       ].concat(meta)}
     />
@@ -99,6 +100,7 @@ Seo.propTypes = {
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
+  image: PropTypes.string,
 }
 
 export default Seo

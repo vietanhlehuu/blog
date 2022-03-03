@@ -197,6 +197,42 @@ Test:
   <div class="inline-block w-0 h-full align-middle"> </div>
 </div>
 
+## Cách 9: Sử dụng display table, inline-block
+
+```html
+<div class="container-wrapper">
+  <div class="container">
+    <div class="element">Element</div>
+  </div>
+</div>
+```
+
+```css
+.container-wrapper {
+  display: table;
+  width: 100%;
+}
+
+.container {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.element {
+  display: inline-block;
+}
+```
+
+Test:
+
+<div class="w-full" style="display: table">
+  <div class="p-4 mb-10 w-full bg-blue-500 h-[200px] text-center align-middle" style="display: table-cell">
+    <div class="p-4 bg-green-500 inline-block">Element</div>
+  </div>
+</div>
+
 # Lời kết
 
 Tùy trường hợp mà ta lại sử dụng những cách khác nhau cho mục đích center element: nội dung động, nhiều phần tử,...

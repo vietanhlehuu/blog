@@ -42,7 +42,7 @@ Output mong đợi sẽ như thế này:
 
 ## Cách 1: Sử dụng flex
 
-Cách quá rõ ràng cho một browser engineer.
+Cách quá rõ ràng cho một CSS engineer.
 
 ```css
 .container {

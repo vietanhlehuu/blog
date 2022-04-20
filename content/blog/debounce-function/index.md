@@ -6,7 +6,7 @@ description: "Khi thực hiện đăng nhập, giả sử button login không b�
 
 Khi thực hiện đăng nhập, giả sử button login không bị disabled sau khi click, người dùng có thể click rất nhiều lần, làm sao để hàm xử lý chỉ gọi một lần sau cuối?
 
-Đó là nội dung của bài này, hiện thực 1 function có thể debounce. hiu
+Đó là nội dung của bài này, hiện thực 1 function có thể debounce.
 
 Nếu như bạn chưa biết debounce có nghĩa là gì, thì mình xin được diễn giải thế này:
 
